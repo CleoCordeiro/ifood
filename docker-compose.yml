@@ -1,0 +1,43 @@
+services:
+  postgres_register_ifood:
+    container_name: postgres_register_ifood
+    image: postgres:13.11
+    environment:
+      POSTGRES_USER: register
+      POSTGRES_PASSWORD: register
+      POSTGRES_DB: register
+    ports:
+      - "5432:5432"
+
+  keycloak_ifood:
+    container_name: keycloak_ifood
+    image: jboss/keycloak:16.1.1
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    ports:
+      - "8180:8080"
+
+  jaeger_ifood:
+    container_name: jaeger_ifood
+    image: jaegertracing/all-in-one:1.6
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+      - "9411:9411"
+    
+  prometheus_ifood:
+    container_name: prometheus_ifood
+    image: prometheus-ifood
+    ports:
+      - "9090:9090"
+  
+  graphana_ifood:
+    container_name: graphana_ifood
+    image: grafana/grafana:9.5.3
+    ports:
+      - "3000:3000"

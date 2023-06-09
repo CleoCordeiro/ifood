@@ -1,0 +1,51 @@
+-- public."location" definition
+
+-- Drop table
+
+-- DROP TABLE public."location";
+
+CREATE TABLE public."location" (
+	latitude float8 NULL,
+	longitude float8 NULL,
+	id bigserial NOT NULL,
+	CONSTRAINT location_pkey PRIMARY KEY (id)
+);
+
+
+-- public.restaurant definition
+
+-- Drop table
+
+-- DROP TABLE public.restaurant;
+
+CREATE TABLE public.restaurant (
+	createdat timestamp(6) NULL,
+	id bigserial NOT NULL,
+	location_id int8 NULL,
+	updatedat timestamp(6) NULL,
+	cnpj varchar(255) NULL,
+	"name" varchar(255) NULL,
+	"owner" varchar(255) NULL,
+	CONSTRAINT restaurant_location_id_key UNIQUE (location_id),
+	CONSTRAINT restaurant_pkey PRIMARY KEY (id),
+	CONSTRAINT fk8xt7uuc7ola9jk93wl3i43ule FOREIGN KEY (location_id) REFERENCES public."location"(id)
+);
+
+
+-- public.product definition
+
+-- Drop table
+
+-- DROP TABLE public.product;
+
+CREATE TABLE public.product (
+	createdat date NULL,
+	price numeric(38, 2) NULL,
+	updatedat date NULL,
+	id bigserial NOT NULL,
+	restaurant_id int8 NULL,
+	description varchar(255) NULL,
+	"name" varchar(255) NULL,
+	CONSTRAINT product_pkey PRIMARY KEY (id),
+	CONSTRAINT fkp4b7e36gck7975p51raud8juk FOREIGN KEY (restaurant_id) REFERENCES public.restaurant(id)
+);
